@@ -38,11 +38,12 @@ routerCharacters.get("/:characterid", async (req, res)=>{
 
 
 routerCharacters.post("/", async (req, res)=>{
+    const animeUrl = await fetch('http://localhost:3000/animes/${req.body.studioId}');
     const characters =await readCharacters();
     const newCharacter = {
         id: characters.length +1,
         name: req.body.name,
-        animeid: req.body.anime
+        animeid:  await animeUrl.json()
     }
     characters.push(newCharacter);
     await writeCharacters(characters);
@@ -50,13 +51,14 @@ routerCharacters.post("/", async (req, res)=>{
 });
 
 routerCharacters.put("/:id", async (req, res)=>{
+    const animeUrl = await fetch('http://localhost:3000/animes/${req.body.studioId}');
     const characters= await readCharacters();
     const indexCharacter = characters.findIndex(character=>character.id === parseInt(req.params.id));
     if(indexCharacter===-1) return res.status(404).send("Personaje no encontrado");
     const updateCharacter={
         id: parseInt(req.params.id),
         name: req.body.name,
-        animeid: req.body.anime
+        animeid:  await animeUrl.json()
     }
     characters[indexCharacter] = updateCharacter;
     await writeCharacters(characters);
