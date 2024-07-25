@@ -39,7 +39,7 @@ routerAnime.get("/:animeid", async (req, res) => {
 });
 
 routerAnime.post('/postAnimes', async(req, res)=>{
-    const studioUrl = await fetch('http://localhost:3000/studios/${req.body.studioId}');
+    const studioUrl = await fetch(`http://localhost:3000/studios/${req.body.studioId}`);
     const animes =await readAnimesFs();
     const newAnimes = {
         id: animes.length + 1,
@@ -56,7 +56,7 @@ routerAnime.post('/postAnimes', async(req, res)=>{
 
 
 routerAnime.put("/:id", async (req, res) => {
-    const studioUrl = await fetch('http://localhost:3000/studios/${req.body.studioId}');
+    const studioUrl = await fetch(`http://localhost:3000/studios/${req.body.studioId}`);
     const animes = await readAnimesFs();
     const indexAnime = animes.findIndex(anime => anime.id === parseInt(req.params.id));
     if(indexAnime === -1) return res.status(404).send("Anime no encontrado");

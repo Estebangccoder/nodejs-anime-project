@@ -38,7 +38,7 @@ routerCharacters.get("/:characterid", async (req, res)=>{
 
 
 routerCharacters.post("/", async (req, res)=>{
-    const animeUrl = await fetch('http://localhost:3000/animes/${req.body.studioId}');
+    const animeUrl = await fetch(`http://localhost:3000/animes/${req.body.studioId}`);
     const characters =await readCharacters();
     const newCharacter = {
         id: characters.length +1,
@@ -51,7 +51,7 @@ routerCharacters.post("/", async (req, res)=>{
 });
 
 routerCharacters.put("/:id", async (req, res)=>{
-    const animeUrl = await fetch('http://localhost:3000/animes/${req.body.studioId}');
+    const animeUrl = await fetch(`http://localhost:3000/animes/${req.body.studioId}`);
     const characters= await readCharacters();
     const indexCharacter = characters.findIndex(character=>character.id === parseInt(req.params.id));
     if(indexCharacter===-1) return res.status(404).send("Personaje no encontrado");
